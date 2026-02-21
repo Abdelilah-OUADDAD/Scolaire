@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Details</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .main-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            border: none;
+            overflow: hidden;
+        }
+        
+        .card-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border: none;
+            text-align: center;
+        }
+        
+        .student-avatar {
+            width: 100px;
+            height: 100px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #667eea;
+            font-size: 3rem;
+            margin: 0 auto 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .info-card {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 5px solid #667eea;
+            transition: all 0.3s ease;
+        }
+        
+        .info-card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .info-label {
+            color: #667eea;
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+        
+        .info-value {
+            color: #333;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        
+        .section-title {
+            color: #764ba2;
+            font-weight: 700;
+            margin: 30px 0 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #764ba2;
+            display: inline-block;
+        }
+        
+        .btn-edit {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border: none;
+            border-radius: 12px;
+            padding: 12px 30px;
+            font-weight: 600;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-edit:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(245, 87, 108, 0.3);
+            color: white;
+        }
+        
+        .btn-back {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            border: none;
+            border-radius: 12px;
+            padding: 12px 30px;
+            font-weight: 600;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-back:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(79, 172, 254, 0.3);
+            color: white;
+        }
+        
+        .badge-info {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-md-10">
+                
+                <div class="card main-card">
+                    <!-- Header -->
+                    <div class="card-header">
+                        <div class="student-avatar">
+                            <i class="bi bi-person-fill"></i>
+                        </div>
+                        <h2 class="mb-2" th:text="${student.nomComplet}">Nom d'etudiant</h2>
+                        <span class="badge-info">
+                            <i class="bi bi-id-card me-2"></i>ID: <span th:text="${student.studentId}">1</span>
+                        </span>
+                    </div>
+                    
+                    <div class="card-body p-4 p-md-5">
+                        
+                        <!-- Personal Information -->
+                        <h4 class="section-title"><i class="bi bi-person me-2"></i>Informations personnelles</h4>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="info-card">
+                                    <div class="info-label"><i class="bi bi-person-badge me-2"></i>Nom</div>
+                                    <div class="info-value" th:text="${student.nom}">Nom</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="info-card">
+                                    <div class="info-label"><i class="bi bi-person-badge me-2"></i>Prenom</div>
+                                    <div class="info-value" th:text="${student.prenom}">Prenom</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Academic Information -->
+                        <h4 class="section-title"><i class="bi bi-building me-2"></i>Informations personnelles</h4>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <div class="info-card">
+                                    <div class="info-label"><i class="bi bi-diagram-3 me-2"></i>Department</div>
+                                    <div class="info-value" th:text="${student.departmentName}">Department</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="info-card">
+                                    <div class="info-label"><i class="bi bi-mortarboard me-2"></i>Année académique</div>
+                                    <div class="info-value" th:text="${student.anneeNiveau}">Année</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <div class="info-card">
+                                    <div class="info-label"><i class="bi bi-people-fill me-2"></i>Group</div>
+                                    <div class="info-value" th:text="${student.groupeNom}">Group</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="info-card">
+                                    <div class="info-label"><i class="bi bi-journal-bookmark me-2"></i>Course</div>
+                                    <div class="info-value" th:text="${student.nomCours}">Course</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Action Buttons -->
+                        <div class="d-flex gap-3 justify-content-center mt-4 pt-4 border-top">
+                            <a th:href="@{/StudentEdit/{id}(id=${student.studentId})}" class="btn btn-edit text-decoration-none">
+                                <i class="bi bi-pencil-square me-2"></i>Modifier d'étudiant
+                            </a>
+                            <a th:href="@{/StudentList}" class="btn btn-back text-decoration-none">
+                                <i class="bi bi-arrow-left me-2"></i>Retourne a la list
+                            </a>
+                        </div>
+                        
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

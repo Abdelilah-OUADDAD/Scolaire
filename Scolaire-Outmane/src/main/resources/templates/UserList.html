@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Users Management</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .card {
+            border-radius: 12px;
+        }
+        .table thead {
+            background-color: #343a40;
+            color: white;
+        }
+        .btn-action {
+            min-width: 70px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- 🔹 Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow">
+    <div class="container">
+        <a class="navbar-brand" href="#">User Management</a>
+        <div>
+            <a href="/StudentList" class="btn btn-outline-light btn-sm">Students</a>
+            <a href="/Login" class="btn btn-outline-light btn-sm ms-2">Logout</a>
+        </div>
+    </div>
+</nav>
+
+<!-- 🔹 Main Content -->
+<div class="container mt-5">
+
+    <div class="card shadow-lg p-4">
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h3 class="mb-0">Users List</h3>
+            <a href="/UserAdd" class="btn btn-success">
+                + Ajouter un nouveau User
+            </a>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-hover align-middle text-center">
+                <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Prenom</th>
+                        <th>Type User</th>
+                        <th>Date Creation</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="user : ${UserList}">
+                        <td th:text="${user.nom}">Nom</td>
+                        <td th:text="${user.prenom}">Prenom</td>
+                        <td>
+                            <span class="badge bg-primary"
+                                  th:text="${user.type_user}">Type</span>
+                        </td>
+                        <td th:text="${#dates.format(user.date_creation, 'dd/MM/yyyy')}">Date</td>
+
+                        <td>
+                            <a th:href="@{/UserList/UserEdit/{id}(id=${user.id})}"
+                               class="btn btn-warning btn-sm btn-action me-2"
+                                target="_self">
+                                Modification
+                            </a>
+
+                            <a th:href="@{/UserList/delete/{id}(id=${user.id})}"
+                               class="btn btn-danger btn-sm btn-action"
+                               onclick="return confirm('Are you sure?')">
+                                Suprimer
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

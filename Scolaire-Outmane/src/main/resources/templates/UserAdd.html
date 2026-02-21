@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add User</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <style>
+        body {
+            background: linear-gradient(135deg, #4e73df, #1cc88a);
+            min-height: 100vh;
+        }
+        .card {
+            border-radius: 20px;
+        }
+        .password-toggle {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container mt-5">
+    <div class="card shadow-lg p-4 col-md-6 mx-auto bg-white">
+        <h3 class="text-center mb-4">Add New User</h3>
+
+        <!-- ✅ Alert Message -->
+        <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+        <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
+
+        
+        <form th:action="@{/UserAdd/Add}" method="post" th:object="${user}" onsubmit="return validatePasswords()">
+
+            
+
+            <div class="mb-3">
+                <label class="form-label">Nom</label>
+                <input type="text" class="form-control" th:field="*{nom}" th:classappend="${#fields.hasErrors('nom')} ? 'false' : 'true'"
+                 required>
+                  <div class="invalid-feedback" th:if="${#fields.hasErrors('nom')}" 
+                     th:errors="*{nom}"></div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Prenom</label>
+                <input type="text" class="form-control" th:field="*{prenom}" th:classappend="${#fields.hasErrors('prenom')} ? 'false' : 'true'"
+                 required>
+                 <div class="invalid-feedback" th:if="${#fields.hasErrors('prenom')}" 
+                     th:errors="*{prenom}"></div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Email</label>
+                <input type="email" class="form-control" th:field="*{email}" th:classappend="${#fields.hasErrors('email')} ? 'false' : 'true'"
+                required>
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('email')}" 
+                     th:errors="*{email}"></div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Type User</label>
+                <select class="form-select" th:field="*{type_user}">
+                    <option value="Admin">Admin</option>
+                    <option value="Student" selected>Student</option>
+                    <option value="Pedagogie">Pedagogie</option>
+                </select>
+            </div>
+
+            <!-- ✅ Password (required for new user) -->
+            <div class="mb-3">
+                <label class="form-label">Password</label>
+                <div class="input-group">
+                    <input type="password" id="password" class="form-control password-field" th:field="*{password}" 
+                     th:classappend="${#fields.hasErrors('password')} ? 'false' : 'true'" required>
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('password')}" 
+                     th:errors="*{password}"></div>
+                    <button type="button" class="btn btn-outline-secondary password-toggle">👁</button>
+                </div>
+            </div>
+
+            <!-- ✅ Confirm Password -->
+            <div class="mb-3">
+                <label class="form-label">Confirm Password</label>
+                <div class="input-group">
+                    <input type="password" id="confirmPassword" class="form-control password-field" name="confirmPassword" required>
+                    <button type="button" class="btn btn-outline-secondary password-toggle">👁</button>
+                </div>
+                <small id="passwordError" class="text-danger"></small>
+            </div>
+
+            <div class="d-flex justify-content-between mt-4">
+                <a th:href="@{/UserList}" class="btn btn-secondary">Cancel</a>
+                <button type="submit" class="btn btn-success">Add User</button>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    // Show/Hide password
+    document.querySelectorAll('.password-toggle').forEach(function(button) {
+        button.addEventListener('click', function() {
+            const input = this.parentElement.querySelector('.password-field');
+            input.type = input.type === "password" ? "text" : "password";
+        });
+    });
+
+    // Password validation
+    function validatePasswords() {
+        let pass = document.getElementById("password").value;
+        let confirmPass = document.getElementById("confirmPassword").value;
+        let errorText = document.getElementById("passwordError");
+
+        if (pass !== confirmPass) {
+            errorText.innerText = "Passwords do not match!";
+            return false;
+        }
+
+        if (pass.length < 6) {
+            errorText.innerText = "Password must be at least 6 characters!";
+            return false;
+        }
+
+        errorText.innerText = "";
+        return true;
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Liste des Étudiants</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .main-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        
+        .header-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header-section h2 {
+            margin: 0;
+            font-weight: 700;
+        }
+        
+        .stats-badge {
+            background: rgba(255,255,255,0.2);
+            padding: 10px 20px;
+            border-radius: 25px;
+            margin-top: 15px;
+            display: inline-block;
+        }
+        
+        .table-container {
+            padding: 30px;
+        }
+        
+        .custom-table {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .custom-table thead {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .custom-table th {
+            font-weight: 600;
+            padding: 20px 15px;
+            border: none;
+        }
+        
+        .custom-table td {
+            padding: 18px 15px;
+            vertical-align: middle;
+            border-color: #f0f0f0;
+        }
+        
+        .custom-table tbody tr:hover {
+            background-color: #f8f9ff;
+            transform: scale(1.01);
+            transition: all 0.3s ease;
+        }
+        
+        .student-id {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        .student-name {
+            font-weight: 600;
+            color: #2d3748;
+        }
+        
+        .info-badge {
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        
+        .badge-dept {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+        
+        .badge-annee {
+            background: #f3e5f5;
+            color: #7b1fa2;
+        }
+        
+        .badge-groupe {
+            background: #e8f5e9;
+            color: #388e3c;
+        }
+        
+        .action-btn {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 3px;
+            transition: all 0.3s ease;
+        }
+        
+        .action-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .btn-view { background: #e3f2fd; color: #1976d2; }
+        .btn-edit { background: #fff3e0; color: #f57c00; }
+        .btn-delete { background: #ffebee; color: #d32f2f; }
+        
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+        }
+        
+        .empty-state i {
+            font-size: 5rem;
+            color: #cbd5e0;
+            margin-bottom: 20px;
+        }
+        
+        .add-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            font-size: 1.5rem;
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+            transition: all 0.3s ease;
+        }
+        
+        .add-btn:hover {
+            transform: scale(1.1) rotate(90deg);
+            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.6);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="main-card">
+        
+        <!-- Header -->
+        <div class="header-section">
+            <h2><i class="fas fa-users me-3"></i>Liste des Étudiants</h2>
+            <div class="stats-badge">
+                <i class="fas fa-user-graduate me-2"></i>
+                <span th:text="${#lists.size(students)} + ' étudiants'">0 étudiants</span>
+            </div>
+        </div>
+        
+        <!-- Table -->
+        <div class="table-container">
+            
+            <!-- if students didn't exist-->
+            <div th:if="${#lists.isEmpty(students)}" class="empty-state">
+                <i class="fas fa-inbox"></i>
+                <h4>Aucun étudiant trouvé</h4>
+                <p class="text-muted">Commencez par ajouter un nouvel étudiant</p>
+            </div>
+            
+            <!-- Table students if already exist-->
+            <div th:unless="${#lists.isEmpty(students)}" class="table-responsive">
+                <table class="table custom-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Étudiant</th>
+                            <th>Département</th>
+                            <th>Année</th>
+                            <th>Groupe</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="student : ${students}">
+                            
+                            <!-- ID -->
+                            <td>
+                                <span class="student-id" th:text="'#' + ${student.studentId}">#1</span>
+                            </td>
+                            
+                            <!-- Nom Complet -->
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-3" 
+                                         style="width: 45px; height: 45px; font-weight: 600;"
+                                         th:text="${#strings.substring(student.prenom,0,1)} + ${#strings.substring(student.nom,0,1)}">
+                                        AB
+                                    </div>
+                                    <div>
+                                        <div class="student-name" th:text="${student.nomComplet}">Ali Ben</div>
+                                        <small class="text-muted" th:text="${student.prenom} + ' ' + ${student.nom}">Ali Ben</small>
+                                    </div>
+                                </div>
+                            </td>
+                            
+                            <!-- Département -->
+                            <td>
+                                <span class="info-badge badge-dept" th:text="${student.departmentName} ?: 'Non assigné'">
+                                    Informatique
+                                </span>
+                            </td>
+                            
+                            <!-- Année -->
+                            <td>
+                                <span class="info-badge badge-annee" th:text="${student.anneeNiveau} ?: '-'">
+                                    1ère Année
+                                </span>
+                            </td>
+                            
+                            <!-- Groupe -->
+                            <td>
+                                <span class="info-badge badge-groupe" th:text="${student.groupeNom} ?: '-'">
+                                    Groupe A
+                                </span>
+                            </td>
+                            
+                            <!-- Actions -->
+                            <td>
+                                <a th:href="@{/StudentShow/{id}(id=${student.studentId})}" 
+                                   class="action-btn btn-view" title="Voir détails">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                                <a th:href="@{/StudentEdit/{id}(id=${student.studentId})}" 
+                                   class="action-btn btn-edit" title="Modifier">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a th:href="@{/delete/{id}(id=${student.studentId})}" 
+                                   class="action-btn btn-delete" title="Supprimer"
+                                   onclick="return confirm('Supprimer cet étudiant?')">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bouton Add -->
+<a th:href="@{/StudentAdd}" class="add-btn" title="Ajouter un étudiant">
+    <i class="fas fa-plus"></i>
+</a>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
