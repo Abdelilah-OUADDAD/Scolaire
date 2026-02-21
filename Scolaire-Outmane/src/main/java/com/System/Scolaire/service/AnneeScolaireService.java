@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.System.Scolaire.model.entity.AnneeScolaire;
 import com.System.Scolaire.repository.AnneeScolaireRepo;
 
-public class AnneeScolaireService {
+public class AnneeScolaireService implements AnneeScolaireInter {
 
     @Autowired
     private AnneeScolaireRepo anneeScolaireRepo;

@@ -17,7 +17,7 @@ import java.util.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserService {
+public class UserService implements UserServiceInter{
 
     @Autowired
     private UserRepo userRepo;

@@ -14,7 +14,7 @@ import jakarta.transaction.Transactional;
 
 @Service
 
-public class GroupeService {
+public class GroupeService implements GroupeServiceInter{
     @Autowired
     private GroupeRepo groupeRepo;
 
