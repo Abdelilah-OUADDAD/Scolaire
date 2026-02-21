@@ -23,9 +23,9 @@ public class EncryptController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    // ✅ Run once, changes all passwords
+    // Run once, changes all passwords
     @GetMapping("/encrypt-passwords")
-    @PreAuthorize("hasRole('ADMIN')") // Khass admin
+    @PreAuthorize("hasRole('ADMIN')") 
     public String encryptAllPasswords() {
         List<User> users = userRepo.findAll();
         int count = 0;
@@ -45,7 +45,7 @@ public class EncryptController {
         return count + " passwords encrypted successfully! Total users: " + users.size();
     }
 
-    // ✅ Encrypt user one with ID
+    //  Encrypt user one with ID
     @GetMapping("/encrypt-user/{id}")
     public String encryptUser(@PathVariable Integer id) {
         User user = userRepo.findById(id)

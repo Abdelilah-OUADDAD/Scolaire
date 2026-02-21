@@ -29,11 +29,11 @@ public class AnneeScolaire {
     @Column(name = "niveauAnnee")
     private String niveauAnnee;
 
-    // ✅ One Annee -> Many Students
+    //  One Annee -> Many Students
     @OneToMany(mappedBy = "anneeScolaire", cascade = CascadeType.ALL)
     private List<Student> students;
 
-    // ✅ One Annee -> Many Groupes
+    //  One Annee -> Many Groupes
     @OneToMany(mappedBy = "anneeScolaire", cascade = CascadeType.ALL)
     private List<Groupe> groupes;
 

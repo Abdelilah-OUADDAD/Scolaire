@@ -33,7 +33,7 @@ public class StudentComponent {
     @Autowired
     private GroupeRepo groupeRepo;
 
-    // ✅ Convert DTO -> Entity
+    // Convert DTO -> Entity
     public Student toEntity(StudentDto dto) {
         Student student = new Student();
         student.setStudentID(dto.getStudentId());
@@ -58,7 +58,7 @@ public class StudentComponent {
         return student;
     }
 
-    // ✅ Convert Entity -> DTO
+    // Convert Entity -> DTO
     public StudentDto toDto(Student s) {
         return StudentDto.builder()
                 .studentId(s.getStudentID())

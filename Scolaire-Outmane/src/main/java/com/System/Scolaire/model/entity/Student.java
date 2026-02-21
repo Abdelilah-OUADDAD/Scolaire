@@ -25,7 +25,7 @@ public class Student {
     @Column(name = "Address", length = 255)
     private String address;
 
-    // ✅ Foreign Keys - ManyToOne
+    // Foreign Keys - ManyToOne
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "DepartmentID", foreignKey = @ForeignKey(name = "FK_Department"))
     private Department department;

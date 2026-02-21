@@ -16,7 +16,7 @@ public class AuthInterceptor implements HandlerInterceptor {
 
         String uri = request.getRequestURI();
 
-        // 🟢 Public URLs (without Login)
+        //  Public URLs (without Login)
         if (uri.equals("/") ||
                 uri.equals("/Login") ||
                 uri.equals("/LoginP") ||
@@ -28,7 +28,7 @@ public class AuthInterceptor implements HandlerInterceptor {
             return true;
         }
 
-        // 🔴 Check Session
+        //  Check Session
         HttpSession session = request.getSession(false);
 
         if (session == null || session.getAttribute("isLoggedIn") == null) {

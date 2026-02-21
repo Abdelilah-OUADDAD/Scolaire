@@ -20,7 +20,7 @@ public class Department {
     @Column(name = "NomDepartment")
     private String nomDepartment;
 
-    // ✅ One Department -> Many Students
+    // One Department -> Many Students
     @OneToMany(mappedBy = "department", cascade = CascadeType.ALL)
     private List<Student> students;
 }

@@ -26,12 +26,12 @@ public class Groupe {
     @Column(name = "CurrentStudent")
     private Integer currentStudent;
 
-    // ✅ Many Groupes -> One Annee
+    // Many Groupes -> One Annee
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "AnneID")
     private AnneeScolaire anneeScolaire;
 
-    // ✅ One Groupe -> Many Students
+    // One Groupe -> Many Students
     @OneToMany(mappedBy = "groupe", cascade = CascadeType.ALL)
     private List<Student> students;
 }

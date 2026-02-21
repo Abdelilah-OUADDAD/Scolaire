@@ -19,7 +19,7 @@ public class StudentService implements StudentServiceInter {
     @Autowired
     private StudentComponent studentComponent;
 
-    // ✅ Get all students
+    //  Get all students
     public List<StudentDto> getAllStudents() {
         return studentRepo.findAll().stream()
                 .map(studentComponent::toDto)
@@ -53,7 +53,7 @@ public class StudentService implements StudentServiceInter {
         }).collect(Collectors.toList());
     }
 
-    // ✅ Get by ID
+    // Get by ID
     public StudentDto getStudent(Integer Id) {
         Optional<Student> student = studentRepo.findById(Id);
         if (student.isPresent()) {
@@ -102,20 +102,20 @@ public class StudentService implements StudentServiceInter {
         return dto;
     }
 
-    // ✅ Save student
+    // Save student
     public StudentDto saveStudent(StudentDto dto) {
         Student student = studentComponent.toEntity(dto);
         return studentComponent.toDto(studentRepo.save(student));
     }
 
-    // ✅ Save student
+    // Save student
     public StudentDto UpdateStudent(StudentDto dto) {
 
         Student student = studentComponent.toEntity(dto);
         return studentComponent.toDto(studentRepo.save(student));
     }
 
-    // ✅ Save student
+    // Save student
     public void DeleteStudent(Integer ID) {
         studentRepo.deleteById(ID);
     }

@@ -46,7 +46,7 @@ public class StudentController {
         return "Student/StudentList";
     }
 
-    // ✅ عرض تفاصيل طالب واحد (SHOW) - الجديد!
+    
     @GetMapping("/StudentShow/{id}")
     public String showStudentDetails(@PathVariable("id") Integer id, Model model,
             RedirectAttributes redirectAttributes) {

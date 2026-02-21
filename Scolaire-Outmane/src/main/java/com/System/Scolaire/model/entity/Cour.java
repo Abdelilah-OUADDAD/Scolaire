@@ -27,7 +27,7 @@ public class Cour {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "AnneeID", foreignKey = @ForeignKey(name = "FK_AnneeID2"))
     private Cour AnneeID;
-    // ✅ One Cour -> Many Students
+    // One Cour -> Many Students
     @OneToMany(mappedBy = "cour", cascade = CascadeType.ALL)
     private List<Student> students;
 }

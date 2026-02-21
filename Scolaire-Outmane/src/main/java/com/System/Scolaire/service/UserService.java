@@ -43,7 +43,7 @@ public class UserService implements UserServiceInter{
     public UserDto SaveUser(UserDto user) {
         String password = user.getPassword();
 
-        // ✅ Check if already encrypted
+        // Check if already encrypted
         if (!password.startsWith("$2a$")) {
             user.setPassword(passwordEncoder.encode(password));
         }

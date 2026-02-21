@@ -25,7 +25,7 @@ public class StudentDto {
     private Integer anneeId;
     private Integer groupId;
 
-    // Info mn relations
+    // Info relations
     private String departmentName;
     private String anneeNiveau;
     private String groupeNom;

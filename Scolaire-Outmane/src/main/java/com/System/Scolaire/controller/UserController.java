@@ -45,13 +45,13 @@ public class UserController {
             return "Login";
         }
 
-        // ✅ Verify encrypted password
+        // Verify encrypted password
         if (!passwordEncoder.matches(password, user.getPassword())) {
             model.addAttribute("error", "Password ghalet!");
             return "Login";
         }
 
-        // HttpSession session = request.getSession(true);
+        
         session.setAttribute("currentUser", user);
         session.setAttribute("userEmail", user.getEmail());
         session.setAttribute("userRole", user.getType_user());
@@ -117,14 +117,14 @@ public class UserController {
         return "UserEdit";
     }
 
-    // ✅ GET - Show form
+    //  GET - Show form
     @GetMapping("/UserAdd")
     public String showAddForm(Model model) {
         model.addAttribute("user", new UserDto());
         return "UserAdd";
     }
 
-    // ✅ POST - Add user
+    //  POST - Add user
     @PostMapping("/UserAdd/Add")
     public String addUser(@Valid @ModelAttribute("user") UserDto userDto,
             BindingResult bindingResult,
@@ -132,7 +132,7 @@ public class UserController {
             Model model) {
 
         userDto.setDate_creation(DateUtil.getCurrentDateGMT());
-        // ✅ Check validation errors
+        //  Check validation errors
         if (bindingResult.hasErrors()) {
 
             return "UserAdd";
