@@ -5,12 +5,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.System.Scolaire.model.Dto.StudentDto;
 import com.System.Scolaire.model.Dto.UserDto;
 import com.System.Scolaire.model.entity.User;
 import com.System.Scolaire.repository.UserRepo;
 
 import lombok.*;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @Data
@@ -73,9 +75,25 @@ public class UserService implements UserServiceInter{
         return UserDto.toDto(userRepo.save(existingUser));
     }
 
-    public List<User> getAllUser() {
-        return userRepo.findAll();
+    public List<UserDto> getAllUser() {
+        List<User> user = userRepo.findAll();
+        return user.stream().map(s -> {
+            UserDto dto = new UserDto();
+            dto.setNom(s.getNom());
+            dto.setPrenom(s.getPrenom());
+            dto.setId(s.getId());
+            // Relations with null check
+            if (s.getType_user() != null) {
+                dto.setType_user(s.getType_user());
+            }
+            if (s.getDate_creation() != null) {
+                dto.setDate_creation(s.getDate_creation());
+            }
+
+            return dto;
+        }).collect(Collectors.toList());
     }
+
 
     public boolean checkOldPassword(Integer Id, String oldPassword) {
         User user = userRepository.findById(Id).orElseThrow();

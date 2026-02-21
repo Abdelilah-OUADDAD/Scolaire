@@ -1,7 +1,11 @@
 package com.System.Scolaire.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.http.HttpStatus;
 
 import com.System.Scolaire.model.Dto.UserDto;
 import com.System.Scolaire.service.UserService;
@@ -13,6 +17,12 @@ public class UserRestConroller {
     @Autowired
     private UserService userService;
 
+    @GetMapping("/get_AllUser")
+    public ResponseEntity<List<UserDto>> getAllUser() {
+
+        return new ResponseEntity<>(userService.getAllUser(), HttpStatus.OK);
+    }
+    
     @GetMapping("/get_User")
     public UserDto getMethodName(@RequestParam Integer Id) {
         UserDto dto = userService.GetUser(Id);

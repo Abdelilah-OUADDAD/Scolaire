@@ -11,5 +11,5 @@ public interface UserServiceInter {
 	UserDto SaveUser(UserDto user);
 	void DeleteUser(Integer id);
 	UserDto UpdateUser(UserDto user);
-	List<User> getAllUser();
+	List<UserDto> getAllUser();
 }
